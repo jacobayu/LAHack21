@@ -23,11 +23,13 @@ server.use(logger('dev'));
 server.use(helmet());
 server.use(cors());
 
+
+server.use('/', indexRouter);
+
 server.use(function(req, res, next) {
     next(createError(404));
 });
 
-server.use('/', indexRouter);
 // error handler
 server.use(function(err, req, res, next) {
     // set locals, only providing error in development
