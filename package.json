@@ -25,6 +25,7 @@
     "helmet": "^4.4.1",
     "http": "0.0.1-security",
     "http-errors": "^1.8.0",
+    "jquery": "^3.6.0",
     "morgan": "^1.10.0",
     "path": "^0.12.7"
   }

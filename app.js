@@ -1,6 +1,6 @@
 const http = require('http');
 const app = require('./app/index');
-
+var $ = require('jquery');
 
 const debug = require('debug')
 
