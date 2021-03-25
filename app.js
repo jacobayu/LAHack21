@@ -1,6 +1,7 @@
 const http = require('http');
 const app = require('./app/index');
 var $ = require('jquery');
+const automation = require('./app/scripts/index');
 
 const debug = require('debug')
 
@@ -17,6 +18,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+automation.startScript();
 
 /**
  * Event listener for HTTP server "error" event.
