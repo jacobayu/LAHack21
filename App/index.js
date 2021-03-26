@@ -10,7 +10,7 @@ const logger = require('morgan');
 const server = express();
 
 const indexRouter = require('./routes/index');
-
+const userInterfaceRouter = require('./routes/userInterface');
 server.use(express.urlencoded({ extended: true }));
 
 server.use(express());
@@ -25,7 +25,7 @@ server.use(cors());
 server.use(express.static(path.join(__dirname, 'public')));
 
 server.use('/', indexRouter);
-
+server.use('/userInterface', userInterfaceRouter);
 // server.use(function(req, res, next) {
 //     res.setHeader(
 //         'Content-Security-Policy',

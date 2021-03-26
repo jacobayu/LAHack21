@@ -20,12 +20,12 @@ async function parseCourses(err, data){
             const filter = {
                 course_id: data[i].id
             }
-            const courseAlreadyExists = await model.get(filter);
+            const courseAlreadyExists = await model.getCourse(filter);
             if(courseAlreadyExists.length === 0){
-                model.insert(course);
+                model.insertCourse(course);
             }
             else{
-                model.update(filter, course);
+                model.updateCourse(filter, course);
             }
             console.log(JSON.stringify(course));
         }
@@ -34,15 +34,48 @@ async function parseCourses(err, data){
     
 }
 
+async function parseAssignments(err, data){
+    console.log("i am alive");
+    if(err) {
+        console.error(err);
+        return 
+    }
+    else{
+        for(i = 0; i < data.length;i++){
+            const assignment = {
+                id: data[i].course_id, 
+                assignment_name: data[i].name, 
+                assignment_id: data[i].id,
+                assignment_desc: data[i].description,
+                due_date: data[i].due_at
+            }
+            const filter = {
+                assignment_id: data[i].id,
+                id: data[i].course_id,
+            }
+            const assignmentAlreadyExists = await model.getAssignment(filter);
+            if(assignmentAlreadyExists.length === 0){
+                model.insertAssignment(assignment);
+            }
+            else{
+                model.updateAssignment(filter, assignment);
+            }
+            console.log(JSON.stringify(assignment));
+        }
+
+        
+    }
+}
 async function getCourses(){
     canvas.get('/api/v1/courses', parseCourses)
 }
 
 async function getAssignments(){
-    const courses = await model.getAll();
+    const courses = await model.getAllCourses();
     for(i = 0; i < courses.length; i++){
-        var urlString = '/api/v1/courses/' + string(courses[i].course_id) + 
+        var urlString = '/api/v1/courses/' + courses[i].course_id + 
             '/assignments';
+            console.log(urlString);
         canvas.get(urlString, parseAssignments);
     }
 }
