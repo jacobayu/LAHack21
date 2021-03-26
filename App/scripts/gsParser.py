@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from lxml import html
 import pandas as pd
+import os.path
 
 
 session_requests = requests.session()
@@ -11,8 +12,8 @@ tree = html.fromstring(result.text)
 authenticity_token = list(set(tree.xpath("//input[@name='authenticity_token']/@value")))[0]
 
 payload = {
-    "session[email]": "<USERNAME>",
-    "session[password]": "<PASSWORD>",
+    "session[email]": "csl2183@columbia.edu",
+    "session[password]": "Legominecraft733",
     "authenticity_token": authenticity_token
 }
 
@@ -106,6 +107,7 @@ for i in range(0,len(list_of_courses)):
 import json
 
 course_with_assignments = json.dumps(course_with_assignments,indent=4,sort_keys=True)
-
-with open('gsParser_results.txt', 'w') as file:
+save_path = "C:/Users/Sean Chang/Documents/GitHub/LAHack21/App/scripts"
+completeName = os.path.join(save_path, 'gsParser_results.txt')
+with open(completeName, 'w') as file:
     file.write(course_with_assignments)
