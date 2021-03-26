@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from lxml import html
+import pandas as pd
 
 
 session_requests = requests.session()
@@ -30,7 +31,7 @@ result = session_requests.get(
 c = result.content
 soup = BeautifulSoup(c, features="lxml")
 
-# Cteates a list of course names
+# Creates a list of course names
 course_names = []
 raw_course_names = soup.find_all('h3', {"class": "courseBox--shortname"})
 
@@ -65,11 +66,34 @@ course_with_assignments = {}
 for each in course_names:
     course_with_assignments[each] = None
 
+# Initializing a list for dictionaries of key-value pairs of {assignment name : due_date}
+assignments = []
+
 # Here, we want to go through each course page and create a list of assignments for each page
 # We can add these assignments to a list and then add this list to their respective place in the dictionary course_with_assignments
-#for each in course_urls:
-#    
-#    result = session_requests.get(
-#        each,
-#        headers = dict(referer = each)
-#    )
+for each in course_urls:
+    
+    result = session_requests.get(
+        each,
+        headers = dict(referer = each)
+    )
+
+    c = result.content
+    soup = BeautifulSoup(c, features="lxml")
+    tables = soup.find('table', {"class":"table"})
+    assignment_lists = pd.read_html(str(tables))[0]
+    
+    course_assignments = {}
+
+    names = assignment_lists['Name'].tolist()
+    due_dates = assignment_lists['Due Date'].tolist()
+    for i in range(0,len(names)):
+      course_assignments[str(names[i])] = str(due_dates[i])
+
+    assignments.append(course_assignments)
+
+# Bringing everything together! Dictionary with key-value pairs of {course_names : course_assignments}
+for i in range(0,len(course_names)):
+    course_with_assignments[course_names[i]] = assignments[i]
+
+print(course_with_assignments)
