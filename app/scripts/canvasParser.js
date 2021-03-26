@@ -27,7 +27,7 @@ async function parseCourses(err, data){
             else{
                 model.updateCourse(filter, course);
             }
-            console.log(JSON.stringify(course));
+            //console.log(JSON.stringify(course));
         }
         
     }
@@ -35,7 +35,6 @@ async function parseCourses(err, data){
 }
 
 async function parseAssignments(err, data){
-    console.log("i am alive");
     if(err) {
         console.error(err);
         return 
@@ -60,7 +59,7 @@ async function parseAssignments(err, data){
             else{
                 model.updateAssignment(filter, assignment);
             }
-            console.log(JSON.stringify(assignment));
+            //console.log(JSON.stringify(assignment));
         }
 
         
@@ -75,7 +74,6 @@ async function getAssignments(){
     for(i = 0; i < courses.length; i++){
         var urlString = '/api/v1/courses/' + courses[i].course_id + 
             '/assignments';
-            console.log(urlString);
         canvas.get(urlString, parseAssignments);
     }
 }

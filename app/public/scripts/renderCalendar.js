@@ -7,15 +7,24 @@ $(document).ready(function() {
             let newEventList = [];
             for(i = 0; i < result.length; i++){
                 //console.log(jobs[i]);
-                const endTime = new Date(result[i].scheduled_time);
+                if(result[i].due_date === null){
+                    console.log("due date null");
+                    continue;
+                }
+                if(result[i].assignment_name === null){
+                    console.log("name null");
+                    continue;
+                }
+                const endTime = new Date(result[i].due_date);
                 const startDateTime = endTime.toISOString();
                 endTime.setMinutes(endTime.getMinutes() + 60);
                 const endDateTime = endTime.toISOString();
                 const event = {
-                    title: result[i].class_name,
+                    title: result[i].assignment_name,
                     start: startDateTime,
                     end: endDateTime
                 }
+                console.log(event);
                 //console.log(event);
                 newEventList.push(event);
                 //console.log(newEventList);

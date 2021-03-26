@@ -7,7 +7,8 @@ router.get('/calendar', async function(req, res, next) {
 });
 
 router.get('/getCalendar', async function(req, res, next){
-    const courses = await model.getAllCourses();
     const assignments = await model.getAllAssignments();
-    res.send(jobs);
+    res.send(assignments);
 });
+
+module.exports = router;
