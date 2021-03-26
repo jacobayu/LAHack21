@@ -10,7 +10,7 @@ const logger = require('morgan');
 const server = express();
 
 const indexRouter = require('./routes/index');
-
+const userInterfaceRouter = require('./routes/userInterface');
 server.use(express.urlencoded({ extended: true }));
 
 server.use(express());
@@ -22,13 +22,17 @@ server.set('views', path.join(__dirname, 'views'));
 server.use(logger('dev'));
 server.use(helmet());
 server.use(cors());
-
+server.use(express.static(path.join(__dirname, 'public')));
 
 server.use('/', indexRouter);
-
-server.use(function(req, res, next) {
-    next(createError(404));
-});
+server.use('/userInterface', userInterfaceRouter);
+// server.use(function(req, res, next) {
+//     res.setHeader(
+//         'Content-Security-Policy',
+//         "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'; "
+//       );
+//     next(createError(404));
+// });
 
 // error handler
 server.use(function(err, req, res, next) {
