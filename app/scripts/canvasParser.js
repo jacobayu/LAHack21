@@ -28,6 +28,7 @@ async function parseCourses(err, data){
                 model.updateCourse(filter, course);
             }
             //console.log(JSON.stringify(course));
+
         }
         
     }
@@ -59,7 +60,6 @@ async function parseAssignments(err, data){
             else{
                 model.updateAssignment(filter, assignment);
             }
-            //console.log(JSON.stringify(assignment));
         }
 
         
