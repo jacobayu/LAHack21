@@ -60,12 +60,6 @@ for each in course_numbers:
     url = url_header + each
     course_urls.append(url)
 
-# Creates a dictionary with the key-value pair of {course_name : list_of_assignments}
-course_with_assignments = {}
-
-for each in course_names:
-    course_with_assignments[each] = None
-
 # Initializing a list for dictionaries of key-value pairs of {assignment name : due_date}
 assignments = []
 
@@ -87,13 +81,31 @@ for each in course_urls:
 
     names = assignment_lists['Name'].tolist()
     due_dates = assignment_lists['Due Date'].tolist()
+
     for i in range(0,len(names)):
-      course_assignments[str(names[i])] = str(due_dates[i])
+        course_assignments[str(names[i])] = str(due_dates[i])
 
     assignments.append(course_assignments)
 
-# Bringing everything together! Dictionary with key-value pairs of {course_names : course_assignments}
-for i in range(0,len(course_names)):
-    course_with_assignments[course_names[i]] = assignments[i]
 
-print(course_with_assignments)
+# This creates a list of courses with their course numbers
+list_of_courses = []
+for i in range(0, len(course_names)):
+    list_of_courses.append(course_names[i] + " | " + course_numbers[i])
+    print(list_of_courses[i])
+
+# Creates a dictionary with the key-value pair of {course : list_of_assignments}
+course_with_assignments = {}
+
+# Bringing everything together! Dictionary with key-value pairs of {course : course_assignments}
+for i in range(0,len(list_of_courses)):
+    course_with_assignments[list_of_courses[i]] = assignments[i]
+
+
+# Now converting our dictionary to the text file gsParser_results so we can put it into js database
+import json
+
+course_with_assignments = json.dumps(course_with_assignments,indent=4,sort_keys=True)
+
+with open('gsParser_results.txt', 'w') as file:
+    file.write(course_with_assignments)
