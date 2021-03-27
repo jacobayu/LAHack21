@@ -103,11 +103,11 @@ for i in range(0,len(list_of_courses)):
     course_with_assignments[list_of_courses[i]] = assignments[i]
 
 
-# Now converting our dictionary to the text file gsParser_results so we can put it into js database
+# Now converting our dictionary to the text file gsParser_results so we can put it into js database..
 import json
 
 course_with_assignments = json.dumps(course_with_assignments,indent=4,sort_keys=True)
-save_path = "C:/Users/Sean Chang/Documents/GitHub/LAHack21/App/scripts"
+save_path = os.path.abspath(".\\App\\scripts")
 completeName = os.path.join(save_path, 'gsParser_results.txt')
 with open(completeName, 'w') as file:
     file.write(course_with_assignments)
