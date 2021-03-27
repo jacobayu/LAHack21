@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from lxml import html
 import pandas as pd
+import os.path
 
 
 session_requests = requests.session()
@@ -92,6 +93,7 @@ for each in course_urls:
 list_of_courses = []
 for i in range(0, len(course_names)):
     list_of_courses.append(course_names[i] + " | " + course_numbers[i])
+    print(list_of_courses[i])
 
 # Creates a dictionary with the key-value pair of {course : list_of_assignments}
 course_with_assignments = {}
@@ -101,10 +103,11 @@ for i in range(0,len(list_of_courses)):
     course_with_assignments[list_of_courses[i]] = assignments[i]
 
 
-# Now converting our dictionary to the text file gsParser_results so we can put it into js database
+# Now converting our dictionary to the text file gsParser_results so we can put it into js database..
 import json
 
-course_with_assignments = json.dumps(course_with_assignments)
-
-with open('gsParser_results.txt', 'w') as file:
+course_with_assignments = json.dumps(course_with_assignments,indent=4,sort_keys=True)
+save_path = os.path.abspath(".\\App\\scripts")
+completeName = os.path.join(save_path, 'gsParser_results.txt')
+with open(completeName, 'w') as file:
     file.write(course_with_assignments)
