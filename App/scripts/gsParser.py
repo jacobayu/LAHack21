@@ -11,8 +11,8 @@ tree = html.fromstring(result.text)
 authenticity_token = list(set(tree.xpath("//input[@name='authenticity_token']/@value")))[0]
 
 payload = {
-    "session[email]": "jtau@ucsd.edu",
-    "session[password]": "KitK@t123grade",
+    "session[email]": "<USERNAME>",
+    "session[password]": "<PASSWORD>",
     "authenticity_token": authenticity_token
 }
 
@@ -104,7 +104,7 @@ for i in range(0,len(list_of_courses)):
 # Now converting our dictionary to the text file gsParser_results so we can put it into js database
 import json
 
-course_with_assignments = json.dumps(course_with_assignments,indent=4,sort_keys=True)
+course_with_assignments = json.dumps(course_with_assignments)
 
 with open('gsParser_results.txt', 'w') as file:
     file.write(course_with_assignments)
