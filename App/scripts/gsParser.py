@@ -11,8 +11,8 @@ tree = html.fromstring(result.text)
 authenticity_token = list(set(tree.xpath("//input[@name='authenticity_token']/@value")))[0]
 
 payload = {
-    "session[email]": "<USERNAME>",
-    "session[password]": "<PASSWORD>",
+    "session[email]": "jtau@ucsd.edu",
+    "session[password]": "KitK@t123grade",
     "authenticity_token": authenticity_token
 }
 
@@ -92,7 +92,6 @@ for each in course_urls:
 list_of_courses = []
 for i in range(0, len(course_names)):
     list_of_courses.append(course_names[i] + " | " + course_numbers[i])
-    print(list_of_courses[i])
 
 # Creates a dictionary with the key-value pair of {course : list_of_assignments}
 course_with_assignments = {}
