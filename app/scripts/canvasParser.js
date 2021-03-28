@@ -43,7 +43,6 @@ async function parseAssignments(err, data){
     else{
         for(i = 0; i < data.length;i++){
             const assignment = {
-                id: data[i].course_id, 
                 assignment_name: data[i].name, 
                 assignment_id: data[i].id,
                 assignment_desc: data[i].description,
@@ -51,13 +50,14 @@ async function parseAssignments(err, data){
             }
             const filter = {
                 assignment_id: data[i].id,
-                id: data[i].course_id,
             }
             const assignmentAlreadyExists = await model.getAssignment(filter);
             if(assignmentAlreadyExists.length === 0){
+                console.log(JSON.stringify(assignment))
                 model.insertAssignment(assignment);
             }
             else{
+                console.log(JSON.stringify(assignment))
                 model.updateAssignment(filter, assignment);
             }
         }
