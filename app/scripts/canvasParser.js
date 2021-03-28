@@ -43,15 +43,13 @@ async function parseAssignments(err, data){
     else{
         for(i = 0; i < data.length;i++){
             const assignment = {
-                id: data[i].course_id, 
                 assignment_name: data[i].name, 
                 assignment_id: data[i].id,
                 assignment_desc: data[i].description,
                 due_date: data[i].due_at
             }
             const filter = {
-                assignment_id: data[i].id,
-                id: data[i].course_id,
+                assignment_id: data[i].id
             }
             const assignmentAlreadyExists = await model.getAssignment(filter);
             if(assignmentAlreadyExists.length === 0){

@@ -88,7 +88,15 @@ async function getAllAssignments(){
     }
 }
 
-
+async function deleteAll() {
+    try {
+        const jobs = await db('assignments')
+            .delete();
+        return jobs;
+    } catch(e){
+        console.error("Error: failed to retrieve assignment", e);
+    }
+}
 
 module.exports = {
     insertCourse,
@@ -98,5 +106,6 @@ module.exports = {
     insertAssignment,
     updateAssignment,
     getAllAssignments,
-    getAssignment
+    getAssignment,
+    deleteAll
 }

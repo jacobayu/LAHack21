@@ -2,6 +2,7 @@ var fs = require('fs');
 var model = require('../models/dbmodels')
 var fileData = fs.readFileSync('gsParser_results.txt').toString();
 
+async function getCourses() {
 var courses = [];
 var assignments = [];
 var assignmentFlag = false;
@@ -83,21 +84,30 @@ for (var i = 1; i < fileData.length-1; i++) {
     }
 }
 
-
 // Next Steps: take these lists and add them to the database so they can be uploaded to the calendar.
+model.deleteAll()
 for (var i=0; i < assignments.length; i++) {
+    if (assignments[i][1].length == 19) {
+        var due_date = assignments[i][1];
+        var year = parseInt(due_date.substring(0, 4));
+        var month = parseInt(due_date.substring(5, 7))-1;
+        var day = parseInt(due_date.substring(8, 10));
+        var hours = parseInt(due_date.substring(11, 13));
+        var minutes = parseInt(due_date.substring(14, 16));
+        var d = new Date(year, month, day, hours, minutes);
+        var d2 = d.toISOString();
         const assignment = {
             assignment_name: assignments[i][0], 
-            due_date: assignments[i][1]
+            due_date: d
         }
         const filter = {
             assignment_name: assignments[i][0]
         }
         const assignmentAlreadyExists = model.getAssignment(filter);
-        if(assignmentAlreadyExists.length === 0){
-            model.insertAssignment(assignment);
-        }
-        else{
-            model.updateAssignment(filter, assignment);
-        }
+        model.insertAssignment(assignment);
+    }
+} 
+}
+module.exports = {
+    getCourses
 }
