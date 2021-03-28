@@ -10,42 +10,41 @@
     
     
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <!-- Compiled and minified JavaScript -->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
-
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     
 
 </head>
 
 <body>
     
-                    <table id="datatable" class ="display">
-                        <thead>
+                <table id="datatable" class ="display">
+                    <thead>
+                        <tr>
+                            <th>Assignment ID</th>
+                            <th>Assignment Name</th>
+                            <th>Assignment Description</th>
+                            <th>Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%assignments.map(assignment => {%>
                             <tr>
-                                <th>Assignment ID</th>
-                                <th>Assignment Name</th>
-                                <th>Assignment Description</th>
-                                <th>Due Date</th>
+                                <td>
+                                    <%=assignment.assignments_id%>
+                                </td>
+                                <td>
+                                    <%=assignment.assignment_name%>
+                                </td>
+                                <td>
+                                    <%=assignment.assignment_desc%>
+                                </td>
+                                <td>
+                                    <%=assignment.due_date%>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <%assignments.map(assignment => {%>
-                                <tr>
-                                    <td>
-                                        <%=assignment.assignments_id%>
-                                    </td>
-                                    <td>
-                                        <%=assignment.assignment_name%>
-                                    </td>
-                                    <td>
-                                        <%=assignment.assignment_desc%>
-                                    </td>
-                                    <td>
-                                        <%=assignment.due_date%>
-                                    </td>
-                                </tr>
-                                <%})%>
+                            <%})%>
         </tbody>
     </table>
 </body>
