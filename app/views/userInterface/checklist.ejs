@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='eng'>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'sha256-WOdSzz11/3cpqOdrm89LBL2UPwEU9EhbDtMy2OciEhs='">
+    <script src="javascripts/jquery/jquery.min.js"></script>
+    <script src="javascripts/datatable/datatable.min.js"></script>
+    <script src="javascripts/uiheader.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script script-src-elem="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <link href="stylesheet/datatable/datatable.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="valign-wrapper container">
+        <div class="row">
+            <div class="col card s12">
+                <div class="row">
+                    <table id="datatable">
+                        <thead>
+                            <tr>
+                                <th>Assignment ID</th>
+                                <th>Assignment Name</th>
+                                <th>Assignment Description</th>
+                                <th>Due Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%assignments.map(assignment => {%>
+                                <tr>
+                                    <td>
+                                        <%=assignments.assignments_id%>
+                                    </td>
+                                    <td>
+                                        <%=assignments.assignment_name%>
+                                    </td>
+                                    <td>
+                                        <%=assignments.assignment_desc%>
+                                    </td>
+                                    <td>
+                                        <%=assignments.due_date%>
+                                    </td>
+                                </tr>
+                                <%})%>
+        </tbody>
+    </table>
+</body>
+</html>

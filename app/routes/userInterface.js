@@ -10,6 +10,9 @@ router.get('/getCalendar', async function(req, res, next){
     const assignments = await model.getAllAssignments();
     res.send(assignments);
 });
-
+router.get('/checklist', async function(req, res, next) {
+    const assignments = await model.getAllAssignments();
+    res.render('userInterface/checklist', {assignments});
+});
 module.exports = router;
 
