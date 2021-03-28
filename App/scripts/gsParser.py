@@ -12,8 +12,8 @@ tree = html.fromstring(result.text)
 authenticity_token = list(set(tree.xpath("//input[@name='authenticity_token']/@value")))[0]
 
 payload = {
-    "session[email]": "<USERNAME>",
-    "session[password]": "<PASSWORD>",
+    "session[email]": "<Username>",
+    "session[password]": "<Password>",
     "authenticity_token": authenticity_token
 }
 
